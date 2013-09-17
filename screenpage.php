@@ -60,7 +60,7 @@ function emailValidate(form) {
 <div id="container">
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
 <div id="box">
-<form name="sendinfo" method="post" action="email2.php" onSubmit="return emailValidate(this);">
+<form name="sendinfo" method="post" action="email.php" onSubmit="return emailValidate(this);">
 <p>Thank you for searching with the RDA FNQ&amp;TS Regional Connector. Would you like to receive our bi-monthly newsletter?</p>
 <p>
   <label>
