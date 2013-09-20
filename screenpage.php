@@ -1,5 +1,5 @@
 <?php
-include("dbconnect.php");
+include("include_dao.php");
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -20,8 +20,7 @@ function showEmailText(first, second) {
 	document.getElementById(second+"label").style.display = 'inline';	
 	document.getElementById(second).style.display = 'inline';
 }
-function checkNewsOptin() {
-	
+function checkNewsOptin() {	
 	if (document.getElementById('questionA_0').checked) {		
 		document.getElementById('sameaddress').style.display = 'inline';
 		document.getElementById('sameaddressy').style.display = 'inline';
@@ -29,7 +28,6 @@ function checkNewsOptin() {
 	} else if (document.getElementById('questionA_1').checked) {
 		showEmailText('copyemail1', 'copyemail2');
 	}
-
 }
 function hideSameAddress() {
 	document.getElementById('sameaddress').style.display = 'none';
@@ -115,7 +113,10 @@ function emailValidate(form) {
 </p>
 <p><br />
 </p>
-
+<?php
+$orgEmail = $_POST['emailAddress'];
+echo "<input type='hidden' name='emailAddress' value='$orgEmail' />";	
+?>
 <p>
  <input type="submit" name="submit" id="submit" value="Next" />
 </p>

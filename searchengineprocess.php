@@ -120,31 +120,25 @@ if ($_REQUEST['submit'] == "Submit")
 	
 		if ($row = $stmt->fetch(PDO::FETCH_OBJ)) {		
 			do {			
-				echo "Organization Name: $row->OrganizationName";
+				echo "Name: $row->OrganizationName";
 				echo "<br/>";
-				echo "Organization Region (in which this organization does business, provides services and/or sells products): $row->Region";
+				echo "Region (in which this organization does business, provides services and/or sells products): $row->Region";
 				echo "<br/>";
-				echo "Organization Type: $row->OrganizationType";
+				echo "Type: $row->OrganizationType";
 				echo "<br/>";
-				echo "Organization Main Purpose: $row->EconomicProfit $row->Environmental $row->SocialCommunity $row->HealthServices $row->Education $row->DestinationMarketing $row->Research $row->ConsultancyContractor $row->MediaOutlet";
+				echo "Main Purpose: $row->EconomicProfit $row->Environmental $row->SocialCommunity $row->HealthServices $row->Education $row->DestinationMarketing $row->Research $row->ConsultancyContractor $row->MediaOutlet";
 				echo "<br/>";
-				echo "Organization Website: $row->WebsiteAddress";
+				echo "Website: $row->WebsiteAddress";
 				echo "<br/>";
-				echo "Organization Key Interests: $row->SeekingPartners $row->SeekingChannels $row->OfferingChannels $row->SeekingContractor $row->OfferingContractor $row->SeekingVentureCapital $row->OfferingVentureCaptital $row->SeekingFunding $row->OfferingFunding $row->SeekingResearchSupport $row->OfferingResearchSupport $row->Etc";
+				echo "Key Interests: $row->SeekingPartners $row->SeekingChannels $row->OfferingChannels $row->SeekingContractor $row->OfferingContractor $row->SeekingVentureCapital $row->OfferingVentureCaptital $row->SeekingFunding $row->OfferingFunding $row->SeekingResearchSupport $row->OfferingResearchSupport $row->Etc";
 				echo "<br/>";
-				echo "Organization Keywords: $row->Keyword";
+				echo "Keywords: $row->Keyword";				
 				echo "<br/>";
-				
-				echo "<br/>";
-				echo "<form id='emailForm' name='emailForm' method='post' action='email.php'>";
-				
-				echo "<input type='hidden' name='emailAddress' value='$row->Email' />";
-				
-				echo "<span onclick='document.emailForm.submit();' id='here'>Click here to send an email to this organization</span>";
-				 
+				echo "<form id='emailForm' name='emailForm' method='post' action='screenpage.php'>";				
+				echo "<input type='hidden' name='emailAddress' value='$row->Email' />";				
+				echo "<span onclick='document.emailForm.submit();' id='here'><input type='button' value='Click here to send an email to this organization' /></span>";				 
 				echo "</form>";
-				echo "<br/>";
-				echo "<br/>";
+				echo "<hr>";
 			} while($row = $stmt->fetch(PDO::FETCH_OBJ));		
 		}else {
 			echo "No results found.";

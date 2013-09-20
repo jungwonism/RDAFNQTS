@@ -16,8 +16,7 @@ include("include_dao.php");
 <div id="box">
 <?php
 if(isset($_POST['helpful'])) {
-	$answer = $_POST['helpful'];
-	echo $answer;
+	$answer = $_POST['helpful'];	
 }
 if ($_REQUEST['submit'] == "Submit")
 {	

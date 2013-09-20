@@ -84,16 +84,35 @@ img.intLink { border: 0; }
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
 <form name="email" method="post" action="emailprocess.php" onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;">
 <?php
-$answer = $_POST['questionA'];
+if(isset($_POST['questionA'])) {
+	$answer = $_POST['questionA'];	
+}
 if($answer == 'yes') {
 	ReportDAO::insert("subscribed");
 }
 
-$to = "jangjungwon@hotmail.com";
-//$to = $_POST['emailAddress'];
+if(isset($_POST['questionB'])) {
+	$answerB = $_POST['questionB'];	
+}
+if(isset($_POST['questionC'])) {
+	$answerC = $_POST['questionC'];	
+}
+if($answerB == 'yes') {	
+	if($answer == 'no') {
+		$toMe = $_POST['copyemail2'];
+	} elseif($answer == 'yes') {
+		$toMe = $_POST['copyemail2'];
+		if($answerC == 'yes') {
+			$toMe = $_POST['secondemail'];
+		}
+	} 
+}
+//$to = "jangjungwon@hotmail.com";
+$to = $_POST['emailAddress'];
 echo "Subject: <br/><input name='subject' type='text' id='subject' size='80' />";
 echo "<br/>";
 echo "<input type='hidden' name='to' id='to' value='$to'>";
+echo "<input type='hidden' name='toMe' id='toMe' value='$toMe'>";
 ?>
 <input type="hidden" name="myDoc">
 <div id="toolBar1">
@@ -161,7 +180,7 @@ echo "<input type='hidden' name='to' id='to' value='$to'>";
 <img class="intLink" title="Copy" onclick="formatDoc('copy');" src="data:image/gif;base64,R0lGODlhFgAWAIQcAB1ChBFNsTRLYyJYwjljwl9vj1iE31iGzF6MnHWX9HOdz5GjuYCl2YKl8ZOt4qezxqK63aK/9KPD+7DI3b/I17LM/MrL1MLY9NHa7OPs++bx/Pv8/f///////////////yH5BAEAAB8ALAAAAAAWABYAAAWG4CeOZGmeaKqubOum1SQ/kPVOW749BeVSus2CgrCxHptLBbOQxCSNCCaF1GUqwQbBd0JGJAyGJJiobE+LnCaDcXAaEoxhQACgNw0FQx9kP+wmaRgYFBQNeAoGihCAJQsCkJAKOhgXEw8BLQYciooHf5o7EA+kC40qBKkAAAGrpy+wsbKzIiEAOw==" />
 <img class="intLink" title="Paste" onclick="formatDoc('paste');" src="data:image/gif;base64,R0lGODlhFgAWAIQUAD04KTRLY2tXQF9vj414WZWIbXmOrpqbmpGjudClFaezxsa0cb/I1+3YitHa7PrkIPHvbuPs+/fvrvv8/f///////////////////////////////////////////////yH5BAEAAB8ALAAAAAAWABYAAAWN4CeOZGmeaKqubGsusPvBSyFJjVDs6nJLB0khR4AkBCmfsCGBQAoCwjF5gwquVykSFbwZE+AwIBV0GhFog2EwIDchjwRiQo9E2Fx4XD5R+B0DDAEnBXBhBhN2DgwDAQFjJYVhCQYRfgoIDGiQJAWTCQMRiwwMfgicnVcAAAMOaK+bLAOrtLUyt7i5uiUhADs=" />
 </div>
-<div id="textBox" contenteditable="true"><p></p></div>
+<div id="textBox" contenteditable="true" name="textBox"><p></p></div>
 <p id="editMode"><input type="checkbox" name="switchMode" id="switchBox" onchange="setDocMode(this.checked);" /> <label for="switchBox">Show HTML</label></p>
 <p><input type="submit" name="submit" id="submit" value="Send" /></p>
 </form>

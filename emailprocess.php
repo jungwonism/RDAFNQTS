@@ -15,9 +15,10 @@ include("include_dao.php");
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
 <div id="box">
 <?php
-$to = $_POST['to'];
+$to  = $_POST['to'] . ', '; // note the comma
+$to .= $_POST['toMe'];
 $subject = $_POST['subject'];
-$message = $_POST['message'];
+$message = $_POST['myDoc'];
 $headers = 'From: RDA FNQ&TS' . "\r\n" .
     'Reply-To: jungwon.jang@my.jcu.edu.au' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
