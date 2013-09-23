@@ -88,7 +88,10 @@ if(isset($_POST['questionA'])) {
 	$answer = $_POST['questionA'];	
 }
 if($answer == 'yes') {
-	ReportDAO::insert("subscribed");
+	$to  = 'jangjungwon@hotmail.com'; // MUST be changed to info@rdafnqts.org.au
+	$subject = 'Subscribe for bi-monthly newsletter';
+	$message = 'Following user wants to subscribe for the bi-monthly newsletter.' . '\n\n'.	$_POST['secondemail'];
+	ReportDAO::insert("subscribed");	
 }
 
 if(isset($_POST['questionB'])) {

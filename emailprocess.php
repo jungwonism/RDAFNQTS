@@ -19,8 +19,8 @@ $to  = $_POST['to'] . ', '; // note the comma
 $to .= $_POST['toMe'];
 $subject = $_POST['subject'];
 $message = $_POST['myDoc'];
-$headers = 'From: RDA FNQ&TS' . "\r\n" .
-    'Reply-To: jungwon.jang@my.jcu.edu.au' . "\r\n" .
+$headers = 'From: RDA FNQ&TS Regional Connector Query' . "\r\n" .
+    'Reply-To: jungwon.jang@my.jcu.edu.au' . "\r\n" . // email address MUST be changed later.
     'X-Mailer: PHP/' . phpversion();
 echo $to;
 echo $subject;

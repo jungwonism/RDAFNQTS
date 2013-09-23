@@ -23,6 +23,14 @@ function showCommentText() {
 <div id="container">
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
 <div id="box">
+<select name="reporttype" id="reporttype" required>
+  <option value="searchedkeywords" selected="selected">Searched Keywords</option>
+  <option value="emailsent">Number of follow through emails sent</option>
+  <option value="unsuccessful">Number of unsuccessful searches</option>
+  <option value="helpful">Number of ‘helpful’ or ‘not helpful’ responses to search engine query</option>
+  <option value="subscribe">Number of users who subscribed to newsletter through search engine query process</option>  
+</select><br />
+<input type='button' value='Generate' />
 <?php
 
 if (!file_exists('c:/report')) {

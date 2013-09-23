@@ -146,43 +146,8 @@ if ($_REQUEST['submit'] == "Submit")
 		}		
 	} catch(PDOException $e) {
 		echo 'ERROR: ' . $e->getMessage();
-	}	
-	
-	// $query = "SELECT distinct Region, OrganizationName, OrganizationType, WebsiteAddress, EconomicProfit, Environmental, SocialCommunity, HealthServices, Education, DestinationMarketing, Research, ConsultancyContractor, MediaOutlet, SeekingPartners, SeekingChannels, OfferingChannels, SeekingContractor, OfferingContractor, SeekingVentureCapital, OfferingVentureCaptital, SeekingFunding, OfferingFunding, SeekingResearchSupport, OfferingResearchSupport, Etc, Keyword, Email FROM Regions, Organization, OrganizationRegion, MainPurpose, OrganizationPurpose, Keyinterests, OrganizationKeyInterests, Keywords, OrganizationKeywords, Email WHERE Regions.RegionID = OrganizationRegion.RegionID AND Organization.OrganizationID = OrganizationRegion.OrganizationID AND MainPurpose.MainPurposeID = OrganizationPurpose.MainPurposeID AND Organization.OrganizationID = OrganizationPurpose.OrganizationID AND Organization.OrganizationID = OrganizationKeyInterests.OrganizationID AND Keyinterests.KeyInterestsID = OrganizationKeyInterests.KeyInterestsID AND Keywords.KeywordID = OrganizationKeywords.KeywordID AND OrganizationKeywords.OrganizationID = Organization.OrganizationID AND Email.OrganizationID = Organization.OrganizationID AND ".$region.$orgType.$purpose.$orgKeywords.$emailConstraint;
-	// //echo $query;
-	// $result = mysql_query($query);		
-	
-	// while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		// echo "Organization Name: $row[OrganizationName]";
-		// echo "<br/>";
-		// echo "Organization Region (in which this organization does business, provides services and/or sells products): $row[Region]";
-		// echo "<br/>";
-		// echo "Organization Type: $row[OrganizationType]";
-		// echo "<br/>";
-		// echo "Organization Main Purpose: $row[EconomicProfit] $row[Environmental] $row[SocialCommunity] $row[HealthServices] $row[Education] $row[DestinationMarketing] $row[Research] $row[ConsultancyContractor] $row[MediaOutlet]";
-		// echo "<br/>";
-		// echo "Organization Website: $row[WebsiteAddress]";
-		// echo "<br/>";
-		// echo "Organization Key Interests: $row[SeekingPartners] $row[SeekingChannels] $row[OfferingChannels] $row[SeekingContractor] $row[OfferingContractor] $row[SeekingVentureCapital] $row[OfferingVentureCaptital] $row[SeekingFunding] $row[OfferingFunding] $row[SeekingResearchSupport] $row[OfferingResearchSupport] $row[Etc]";
-		// echo "<br/>";
-		// echo "Organization Keywords: $row[Keyword]";
-		// echo "<br/>";
-		
-		// echo "<br/>";
-		// echo "<form id='emailForm' name='emailForm' method='post' action='email.php'>";
-		
-		// echo "<input type='hidden' name='emailAddress' value='$row[Email]' />";
-		
-		// echo "<span onclick='document.emailForm.submit();' id='here'>Click here to send an email to this organization</span>";
-		 
-		// echo "</form>";
-		// echo "<br/>";
-		// echo "<br/>";
-			
-	// }
+	}		
 }
-
-
 
 echo "<form name='comment' method='post' action='comment.php' onSubmit=''>";
 echo "<p>Let us know whether the Regional Connector was helpful.</p>";
