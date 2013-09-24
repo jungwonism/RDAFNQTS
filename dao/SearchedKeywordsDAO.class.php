@@ -1,3 +1,14 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+
+@import url("css/style.css");
+
+</style>
+</head>
+<body>
 <?php
 class SearchedKeywordsDAO{
 
@@ -33,19 +44,25 @@ class SearchedKeywordsDAO{
 			$stmt = $conn->prepare('SELECT searchedkeywords, COUNT( * ) as count FROM searchedkeywords GROUP BY searchedkeywords ORDER BY COUNT( * ) DESC');
 			$stmt->execute();
 			
-			echo '<table width="400">';
-			   echo '<tr>
-				 <td width="50%"><label><strong>Searched Keywords</strong></label></td>
-				 <td width="50%"><label><strong>Number of times searched</strong></label></td>
-			   </tr>';
+			echo '<table id="rounded-corner" width="400">';
+			   echo '
+			   <thead>
+			   <tr>
+				 <th scope="col">Searched Keywords</td>
+				 <th scope="col">Number of times searched</td>
+			   </tr>
+			   </thead>
+			   <tbody>';
 			   while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-					echo '<tr>
+					echo '
+					<tr>
 					 <td width="50%"><label>',$row->searchedkeywords,'</label></td>
 					 <td width="50%"><label>',$row->count,'</label></td>
 				    </tr>';
 					
-			   }			   
-			echo '</table>';		
+			   }	
+				
+			echo '</tbody></table>';		
 					
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
@@ -85,3 +102,5 @@ class SearchedKeywordsDAO{
 	}
 }
 ?>
+</body>
+</hteml>

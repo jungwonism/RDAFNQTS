@@ -6,17 +6,7 @@ include("include_dao.php");
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Generate Report</title>
-<link href="css/searchengine.css" rel="stylesheet" type="text/css">
-<script type="text/javascript">
-function hideCommentText() {
-	document.getElementById("commentLabel").style.display = 'none';	
-	document.getElementById("comment").style.display = 'none';	
-}
-function showCommentText() {
-	document.getElementById("commentLabel").style.display = 'inline';	
-	document.getElementById("comment").style.display = 'inline';	
-}
-</script>
+<link href="css/addentry.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
