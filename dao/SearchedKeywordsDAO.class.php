@@ -7,6 +7,7 @@
 @import url("css/style.css");
 
 </style>
+<script src="css/sorttable.js"></script>
 </head>
 <body>
 <?php
@@ -31,20 +32,21 @@ class SearchedKeywordsDAO{
 		}			
 	}
 	
-	public static function querySearchedKeywords() {		
+	public static function querySearchedKeywords($interval) {		
 		
 		$dsn = "mysql:dbname=RDAFNQTS;host=localhost";
 	    $username = "root";
 		$password = "lilac";
+		$timeperiod = ' WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL '.$interval.' DAY) AND NOW() ';
 		
 		try {
 			$conn = new PDO($dsn, $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 			
 			
-			$stmt = $conn->prepare('SELECT searchedkeywords, COUNT( * ) as count FROM searchedkeywords GROUP BY searchedkeywords ORDER BY COUNT( * ) DESC');
+			$stmt = $conn->prepare('SELECT searchedkeywords, COUNT( * ) as count FROM searchedkeywords'.$timeperiod.'GROUP BY searchedkeywords ORDER BY COUNT( * ) DESC');
 			$stmt->execute();
 			
-			echo '<table id="rounded-corner" width="400">';
+			echo '<table class="sortable" id="rounded-corner">';
 			   echo '
 			   <thead>
 			   <tr>
@@ -56,8 +58,8 @@ class SearchedKeywordsDAO{
 			   while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
 					echo '
 					<tr>
-					 <td width="50%"><label>',$row->searchedkeywords,'</label></td>
-					 <td width="50%"><label>',$row->count,'</label></td>
+					 <td><label>',$row->searchedkeywords,'</label></td>
+					 <td><label>',$row->count,'</label></td>
 				    </tr>';
 					
 			   }	
@@ -69,11 +71,12 @@ class SearchedKeywordsDAO{
 		}		
 	} 
 	
-	public static function exportCSV() {		
+	public static function exportCSV($interval) {		
 		
 		$dsn = "mysql:dbname=RDAFNQTS;host=localhost";
 	    $username = "root";
 		$password = "lilac";
+		$timeperiod = ' WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL '.$interval.' DAY) AND NOW() ';
 		
 		try {
 			$conn = new PDO($dsn, $username, $password);
@@ -83,7 +86,7 @@ class SearchedKeywordsDAO{
 			
 			$filename = "c:/report/searchedkeyword_".$date.".csv";
 			$handle = fopen($filename, 'w+');
-			$stmt = $conn->prepare('SELECT searchedkeywords, COUNT( * ) as count FROM searchedkeywords GROUP BY searchedkeywords ORDER BY COUNT( * ) DESC');
+			$stmt = $conn->prepare('SELECT searchedkeywords, COUNT( * ) as count FROM searchedkeywords'.$timeperiod.'GROUP BY searchedkeywords ORDER BY COUNT( * ) DESC');
 			$stmt->execute();
 			
 			fputcsv($handle, array('Searched Keywords','Number of times searched'));
