@@ -31,9 +31,10 @@ function enableInternational(value)
     {
         subfield.disabled = true;
     }
-} 
+}
 </script>
-<link href="css/searchengine.css" rel="stylesheet" type="text/css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<link href="css/basic.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -126,8 +127,10 @@ function enableInternational(value)
        <label for="internationalregion"></label>
        <input type="text" name="internationalregion" id="internationalregion" size="60" disabled="disabled" maxlength="60"></td>
    </tr>
- </table>
+ </table> 
+ <input type='hidden' id='multichk' />
 </fieldset>
+
 <br />
 <fieldset><legend>Organization Type</legend>
 	<select name="orgtype" id="orgtype">     
@@ -184,10 +187,26 @@ function enableInternational(value)
    <option value="magazine">Magazine/Journal</option>
   </select>
 </fieldset>
+<script>
+$( "form" ).submit(function( event ) {
+    
+	if($('input:checkbox[name="regiongroup[]"]:checked').length === 0 || $('input:checkbox[name="orgmainpurpose[]"]:checked').length === 0){
+		alert("Please choose at least one option for each section.");
+		hasError = true;
+		event.preventDefault();
+	}
+	// if($('input:checkbox[name="orgmainpurpose[]"]:checked').length === 0){
+		// //$("#multichk").after('<span class="error">Please choose at least one.</span>');
+		// alert("Please choose at least one option for Main purpose section.");
+		// hasError = true;
+		// event.preventDefault();
+	// }
+});
+</script>
 <br />
 <p>
  <label for="keywords">Keywords: (separate with comma(,))</label><br />
- <input name="keywords" type="text" id="keywords" placeholder="e.g. health,disability,NRM,agriculture,etc" size="80"  maxlength="300"/>
+ <input name="keywords" type="text" id="keywords" placeholder="e.g. health,disability,NRM,agriculture,etc" size="80"  maxlength="300" required />
 </p>
 <br />
 <input type="submit" name="submit" id="submit" value="Submit" />

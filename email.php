@@ -6,7 +6,7 @@ include("include_dao.php");
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Email</title>
-<link href="css/email.css" rel="stylesheet" type="text/css">
+<link href="css/basic.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 var oDoc, sDefTxt;
 

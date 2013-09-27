@@ -7,7 +7,7 @@ include("include_dao.php");
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Processed</title>
-<link href="css/addentry.css" rel="stylesheet" type="text/css">
+<link href="css/basic.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
