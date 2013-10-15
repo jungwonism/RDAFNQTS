@@ -7,6 +7,11 @@ include("include_dao.php");
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Generate Report</title>
 <link href="css/basic.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+function showExportButton() {
+	document.getElementById("submit").disabled = false;
+}
+</script>
 </head>
 
 <body>
@@ -56,11 +61,7 @@ if (!file_exists('c:/report')) {
     mkdir('c:/report', 0777, true);
 }
 
-
-
-
-if(isset($_POST["reporttype"], $_POST["timeperiod"])) {
-
+if(isset($_POST["reporttype"], $_POST["timeperiod"])) {		
 	if($reporttype == 'searchedkeywords') {
 		switch($timeperiod) {
 			case "today":
@@ -98,6 +99,9 @@ if(isset($_POST["reporttype"], $_POST["timeperiod"])) {
 				break;				
 		}	
 	}
+	// echo '<script type="text/javascript">'
+   // , 'showExportButton();'
+   // , '</script>';
 } else {
 	echo "Please select report type and time period. Thanks.";
 }
@@ -183,8 +187,10 @@ switch($timeperiod) {
 		break;				
 }
 ?> 
-/>										
+/>
+
 <input type='submit' id='submit' name='submit' value='Export to CSV' />
+
 </form>
 
 </div>

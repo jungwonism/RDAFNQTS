@@ -173,7 +173,7 @@ if ($_REQUEST['submit'] == "Submit")
 				 <td><label>',$row->WebsiteAddress,'</label></td>
 				 <td><label>',$row->SeekingPartners, $row->SeekingChannels, $row->OfferingChannels, $row->SeekingContractor, $row->OfferingContractor, $row->SeekingVentureCapital, $row->OfferingVentureCaptital, $row->SeekingFunding, $row->OfferingFunding, $row->SeekingResearchSupport, $row->OfferingResearchSupport, $row->Etc,'</label></td>
 				 <td><label>',$row->Keyword,'</label></td>
-				 <td><center>															
+				 <td><label><center>															
 							<input type="button" id="mailsendbutton" value="Click" /></center>
 							<div class="blackout">
 							</div>
@@ -181,7 +181,7 @@ if ($_REQUEST['submit'] == "Submit")
 							<br />
 							<center>
 							<form id="emailForm" name="emailForm" method="post" action="screenpage.php"><p>Let us know whether the Regional Connector was helpful.</p><br />
-							<input type="hidden" name="emailAddress" value='.$row->Email.' />
+							<input type="hidden" name="emailAddress" value="$row->Email" />
 							<label>
 							<input type="radio" name="helpful" value="helpful" id="helpful" onClick="hideCommentText()">
 							YES</label><br>
@@ -193,11 +193,11 @@ if ($_REQUEST['submit'] == "Submit")
 							<textarea name="comment" id="comment" rows="10" cols="40" style="display:none"></textarea>
 							</p>
 							<p><input type="submit" name="submit" id="submit" value="Submit" /></p>
-							</form>
+							
 							</center>
 							</div>
 							
-							</td>
+							</form></label></td>
 				</tr>';		
 		} 
 		echo '</tbody></table>';				

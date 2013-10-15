@@ -22,11 +22,15 @@ $message = $_POST['myDoc'];
 $headers = 'From: RDA FNQ&TS Regional Connector Query' . "\r\n" .
     'Reply-To: jungwon.jang@my.jcu.edu.au' . "\r\n" . // email address MUST be changed later.
     'X-Mailer: PHP/' . phpversion();
-echo $to;
-echo $subject;
-echo $message;
-echo $headers;
-mail($to, $subject, $message, $headers);
+
+if(@mail($to, $subject, $message, $headers))
+{
+  echo "Email Sent Successfully.";  
+}else{
+  echo "Email Not Sent. Please contact the administrator.";
+}	
+
+//mail($to, $subject, $message, $headers);
 ReportDAO::insert("emailsent");
 ?>
 

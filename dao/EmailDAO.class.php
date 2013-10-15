@@ -7,6 +7,8 @@ class EmailDAO{
 	    $username = "root";
 		$password = "lilac";
 		
+		if(!isset($email)) return;
+		
 		try {
 			$conn = new PDO($dsn, $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);   			
