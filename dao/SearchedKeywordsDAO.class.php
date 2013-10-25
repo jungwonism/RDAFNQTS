@@ -79,26 +79,42 @@ class SearchedKeywordsDAO{
 		$timeperiod = ' WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL '.$interval.' DAY) AND NOW() ';
 		
 		try {
+			// $conn = new PDO($dsn, $username, $password);
+			// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 	
+			// date_default_timezone_set('Australia/Brisbane');
+			// $date = date("d_M_Y H.i", time());
+			
+			// $filename = "c:/report/searchedkeyword_".$date.".csv";
+			// $handle = fopen($filename, 'w');
+			// $stmt = $conn->prepare('SELECT searchedkeywords, COUNT( * ) as count FROM searchedkeywords'.$timeperiod.'GROUP BY searchedkeywords ORDER BY COUNT( * ) DESC');
+			// $stmt->execute();
+			
+			// fputcsv($handle, array('Searched Keywords','Number of times searched'));
+			// foreach($stmt as $row)
+			// {
+				// fputcsv($handle, array($row['searchedkeywords'], $row['count']));
+			// }
+			 
+			// // Finish writing the file
+			// fclose($handle);		
 			$conn = new PDO($dsn, $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 	
 			date_default_timezone_set('Australia/Brisbane');
-			$date = date('d_m_Y h.i.s a', time());
+			$date = date("d_M_Y H.i", time());
 			
-			$filename = "c:/report/searchedkeyword_".$date.".csv";
-			$handle = fopen($filename, 'w+');
+			$filename = "searchedkeyword_".$date.".csv";
 			$stmt = $conn->prepare('SELECT searchedkeywords, COUNT( * ) as count FROM searchedkeywords'.$timeperiod.'GROUP BY searchedkeywords ORDER BY COUNT( * ) DESC');
 			$stmt->execute();
+			header('Content-Type: application/csv');
+			header('Content-Disposition: attachement; filename="'.$filename.'"');
 			
-			fputcsv($handle, array('Searched Keywords','Number of times searched'));
+			echo 'Searched Keywords,Number of times searched';
 			foreach($stmt as $row)
 			{
-				fputcsv($handle, array($row['searchedkeywords'], $row['count']));
+				echo $row['searchedkeywords'] . ',' . $row['count'];
 			}
-			 
-			// Finish writing the file
-			fclose($handle);	
 			
-					
+			
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}		

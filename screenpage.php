@@ -68,7 +68,7 @@ if ($_REQUEST['submit'] == "Submit")
 		ReportDAO::insert("helpful");
 	} elseif ($answer == 'nothelpful') {
 		ReportDAO::insert("nothelpful");
-		$to  = 'jangjungwon@hotmail.com'; // MUST be changed to info@rdafnqts.org.au
+		$to  = 'servertestmail00@gmail.com'; // MUST be changed to info@rdafnqts.org.au
 		$subject = 'Comment from the the user who select the regional connector is not helpful';
 		$message = $_POST['comment'];
 		

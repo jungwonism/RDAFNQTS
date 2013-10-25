@@ -1,5 +1,5 @@
 <?php
-include("dbconnect.php");
+include("include_dao.php");
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -188,10 +188,24 @@ function isValidEmail() {
 	
 }
 function isNumber(evt){
-    var charCode = (evt.which) ? evt.which : event.keyCode
-    if (charCode > 33 && (charCode < 48 || charCode > 57))
-        return false;
+    var charCode = (evt.which) ? evt.which : event.keyCode	
+    if (charCode > 33 && (charCode < 48 || charCode > 57)) {
+		return false;
+	}        
     return true;
+}
+function isCharacterNumber(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode	
+    if (charCode >= 47 && charCode <= 57) {
+		return true;
+	} else if (charCode >= 97 && charCode <= 122) {
+		return true;
+	} else if (charCode >= 65 && charCode <= 90) {
+		return true;
+	} else if (charCode == 32) {
+		return true;
+	}
+    return false;
 }
 </script>
 <link href="css/basic.css" rel="stylesheet" type="text/css">
@@ -203,24 +217,24 @@ function isNumber(evt){
 <div id="box">
 <form name="addentry" method="post" action="addentryprocess.php" onSubmit="javascript:return isValidEmail()">
 <p>
- <label for="firstname">First Name: </label><br />
- <input name="firstname" type="text" id="firstname" size="30" required/>
+ <label for="firstname">First Name: * mendatory field</label><br />
+ <input name="firstname" type="text" id="firstname" size="30" onkeypress='return isCharacterNumber(event)' required/>
 </p>
 <p>
- <label for="lastname">Last Name: </label><br />
- <input name="lastname" type="text" id="lastname" size="30" required/>
+ <label for="lastname">Last Name: *</label><br />
+ <input name="lastname" type="text" id="lastname" size="30" onkeypress='return isCharacterNumber(event)' required/>
 </p>
 <p>
  <label for="position">Position Title: </label><br />
- <input name="position" type="text" id="position" size="30" />
+ <input name="position" type="text" id="position" size="30" onkeypress='return isCharacterNumber(event)' />
 </p>
 
 <p>
- <label for="orgname">Organization Name: </label><br />
- <input name="orgname" type="text" id="orgname" size="30" required/>
+ <label for="orgname">Organization Name: *</label><br />
+ <input name="orgname" type="text" id="orgname" size="30" onkeypress='return isCharacterNumber(event)' required/>
 </p>
 <p>
- <label for="phone">Phone Number: </label><br />
+ <label for="phone">Phone Number: *</label><br />
  <input name="phone" type="text" id="phone" size="15" onkeypress="return isNumber(event)" maxlength="15" required/>
 </p>
 <p>
@@ -228,7 +242,7 @@ function isNumber(evt){
  <input name="fax" type="text" id="fax" size="15" onkeypress="return isNumber(event)" maxlength="15" />
 </p>
 <p>
- <label for="mobile">Mobile Number: </label><br />
+ <label for="mobile">Mobile Number: *</label><br />
  <input name="mobile" type="text" id="mobile" size="15" onkeypress="return isNumber(event)" maxlength="15" required/>
 </p>
 <p>
@@ -245,7 +259,7 @@ function isNumber(evt){
 </p>
 
 <p>
- <label for="email1">Email 1: </label><br />
+ <label for="email1">Email 1: *</label><br />
  <input name="email1" type="email" id="email1" size="30" required/>
  <label>
    <br>
@@ -298,13 +312,13 @@ function isNumber(evt){
 
 <fieldset>
  <legend>Business Location</legend>
- <label for="businessaddress1">Address 1: </label>
- <input name="businessaddress1" type="text" id="businessaddress1" size="40" required/><br />
+ <label for="businessaddress1">Address 1: *</label>
+ <input name="businessaddress1" type="text" id="businessaddress1" size="40" onkeypress='return isCharacterNumber(event)' required/><br />
  <label for="businessaddress2">Address 2: </label>
- <input name="businessaddress2" type="text" id="businessaddress2" size="40" /><br />
- <label for="businesssuburb">Suburb: </label>
- <input name="businesssuburb" type="text" id="businesssuburb" size="20" required/><br />
- <label for="businessstate">State: </label> 
+ <input name="businessaddress2" type="text" id="businessaddress2" size="40" onkeypress='return isCharacterNumber(event)' /><br />
+ <label for="businesssuburb">Suburb: *</label>
+ <input name="businesssuburb" type="text" id="businesssuburb" size="20" onkeypress='return isCharacterNumber(event)' required/><br />
+ <label for="businessstate">State: *</label> 
  <select name="businessstate" id="businessstate" required>
   <option value="qld" selected="selected">QLD</option>
   <option value="nsw">NSW</option>
@@ -315,20 +329,20 @@ function isNumber(evt){
   <option value="wa">WA</option>
   <option value="nt">NT</option>
  </select><br />
- <label for="businesspostcode">Postcode: </label>
+ <label for="businesspostcode">Postcode: *</label>
  <input name="businesspostcode" type="text" id="businesspostcode" size="10" onkeypress="return isNumber(event)" required/><br />
  <label for="businesscountry">Country: </label>
- <input name="businesscountry" type="text" id="businesscountry" size="30" />
+ <input name="businesscountry" type="text" id="businesscountry" size="30" onkeypress='return isCharacterNumber(event)' />
 </fieldset>
 <br />
 <fieldset>
  <legend>Postal Address</legend>
  <label for="postaladdress1">Address 1: </label>
- <input name="postaladdress1" type="text" id="postaladdress1" size="40" /><br />
+ <input name="postaladdress1" type="text" id="postaladdress1" size="40" onkeypress='return isCharacterNumber(event)' /><br />
  <label for="postaladdress2">Address 2: </label>
- <input name="postaladdress2" type="text" id="postaladdress2" size="40" /><br />
+ <input name="postaladdress2" type="text" id="postaladdress2" size="40" onkeypress='return isCharacterNumber(event)' /><br />
  <label for="postalsuburb">Suburb: </label>
- <input name="postalsuburb" type="text" id="postalsuburb" size="20" /><br />
+ <input name="postalsuburb" type="text" id="postalsuburb" size="20" onkeypress='return isCharacterNumber(event)' /><br />
  <label for="postalstate">State: </label> 
  <select name="postalstate" id="postalstate">
   <option value="qld" selected="selected">QLD</option>
@@ -343,7 +357,7 @@ function isNumber(evt){
  <label for="postalpostcode">Postcode: </label>
  <input name="postalpostcode" type="text" id="postalpostcode" size="10" onkeypress="return isNumber(event)" /><br />
  <label for="postalcountry">Country: </label>
- <input name="postalcountry" type="text" id="postalcountry" size="30" />
+ <input name="postalcountry" type="text" id="postalcountry" size="30" onkeypress='return isCharacterNumber(event)' />
 </fieldset>
 <br />
 <p>
@@ -351,7 +365,7 @@ function isNumber(evt){
  <input name="website" type="text" id="website" size="50" />
 </p>
 <fieldset>
- <legend>Select regions in which you do business, provide services and/or sell products</legend>  
+ <legend>Select regions in which you do business, provide services and/or sell products *</legend>  
 
  <table width="500">
    <tr>
@@ -430,7 +444,7 @@ function isNumber(evt){
        <input type="checkbox" name="regiongroup[]" value="international" id="regiongroup_14" onClick="enableInternational(this)">
        International </label>
        <label for="internationalregion"></label>
-       <input type="text" name="internationalregion" id="internationalregion" size="60" disabled="disabled" maxlength="60"></td>
+       <input type="text" name="internationalregion" id="internationalregion" size="60" disabled="disabled" maxlength="60" onkeypress='return isCharacterNumber(event)' ></td>
    </tr>
  </table>
 </fieldset>
@@ -596,8 +610,8 @@ function isNumber(evt){
 </fieldset>
 <br />
 <p>
- <label for="keywords">Keywords: (separate with comma(,))</label><br />
- <input name="keywords" type="text" id="keywords" placeholder="e.g. health,disability,NRM,agriculture,etc" size="80"  maxlength="300"/>
+ <label for="keywords">Keywords: (separate with comma(,)) *</label><br />
+ <input name="keywords" type="text" id="keywords" placeholder="e.g. health,disability,NRM,agriculture,etc" size="80"  maxlength="300" required/>
 </p>
 <fieldset>
 <legend>Key Interests</legend>

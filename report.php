@@ -188,7 +188,6 @@ switch($timeperiod) {
 }
 ?> 
 />
-
 <input type='submit' id='submit' name='submit' value='Export to CSV' />
 
 </form>

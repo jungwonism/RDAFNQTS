@@ -5,7 +5,7 @@ include("include_dao.php");
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Untitled Document</title>
+<title>Email processed</title>
 <link href="css/basic.css" rel="stylesheet" type="text/css">
 
 </head>
@@ -16,7 +16,7 @@ include("include_dao.php");
 <div id="box">
 <?php
 $to  = $_POST['to'] . ', '; // note the comma
-$to .= $_POST['toMe'];
+if(isset($_POST['toMe'])) {$to .= $_POST['toMe'];}
 $subject = $_POST['subject'];
 $message = $_POST['myDoc'];
 $headers = 'From: RDA FNQ&TS Regional Connector Query' . "\r\n" .

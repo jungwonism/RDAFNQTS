@@ -1,5 +1,5 @@
 <?php
-include("dbconnect.php");
+include("include_dao.php");
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -33,11 +33,29 @@ function enableInternational(value)
     }
 }
 </script>
+<script>
+function start()
+{
+        starttime = (new Date()).getTime();
+}
+function leave()
+{
+        stoptime = (new Date()).getTime();
+        var params = "timeSpent="+((stoptime-starttime)/1000);
+        xmlobj = new XMLHttpRequest();
+        xmlobj.open('POST', 'ajaxlogtime.php', true);
+        xmlobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlobj.setRequestHeader("Content-length", params.length);
+        xmlobj.setRequestHeader("Connection", "close");
+        xmlobj.send(params);
+		
+} 
+</script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <link href="css/basic.css" rel="stylesheet" type="text/css">
 </head>
 
-<body>
+<body onload=start() onunload=leave()>
 
 <div id="container">
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>

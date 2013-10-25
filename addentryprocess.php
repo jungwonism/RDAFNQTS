@@ -324,39 +324,42 @@ if ($_REQUEST['submit'] == "Submit")
 	$newsletter = 0;
 	$info = 0;
 	
-	if(isset($_POST['email2nominate'])) {
-		foreach($_POST['email2nominate'] as $value)
-		{		
-			if ($value == 'rconnector') {
-				$rconnector = 1;	
-			} else if ($value == 'newsletter') {
-				$newsletter = 1;	
-			} else if ($value == 'info') {
-				$info = 1;	
+	if($email2 != "") {
+		if(isset($_POST['email2nominate'])) {
+			foreach($_POST['email2nominate'] as $value)
+			{		
+				if ($value == 'rconnector') {
+					$rconnector = 1;	
+				} else if ($value == 'newsletter') {
+					$newsletter = 1;	
+				} else if ($value == 'info') {
+					$info = 1;	
+				}
 			}
 		}
+		
+		EmailDAO::insert($email2, $rconnector, $newsletter, $info, $organizationid);
 	}
-	
-	EmailDAO::insert($email2, $rconnector, $newsletter, $info, $organizationid);
 	$rconnector = 0;
 	$newsletter = 0;
 	$info = 0;
 	
-	if(isset($_POST['email3nominate'])) {
-		foreach($_POST['email3nominate'] as $value)
-		{		
-			if ($value == 'rconnector') {
-				$rconnector = 1;	
-			} else if ($value == 'newsletter') {
-				$newsletter = 1;	
-			} else if ($value == 'info') {
-				$info = 1;	
+	if($email2 != "") {
+		if(isset($_POST['email3nominate'])) {
+			foreach($_POST['email3nominate'] as $value)
+			{		
+				if ($value == 'rconnector') {
+					$rconnector = 1;	
+				} else if ($value == 'newsletter') {
+					$newsletter = 1;	
+				} else if ($value == 'info') {
+					$info = 1;	
+				}
 			}
 		}
+		
+		EmailDAO::insert($email3, $rconnector, $newsletter, $info, $organizationid);
 	}
-	
-	EmailDAO::insert($email3, $rconnector, $newsletter, $info, $organizationid);
-	
 	echo "New entry added successfully.";
 }
 

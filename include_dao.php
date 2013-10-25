@@ -35,6 +35,8 @@
 	require_once('dao/ReportDAO.class.php');
 	
 	require_once('dao/SearchedKeywordsDAO.class.php');
+	
+	require_once('dao/QueryPageTimeDAO.class.php');
 
 
 ?>

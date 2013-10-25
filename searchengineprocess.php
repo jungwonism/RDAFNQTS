@@ -161,8 +161,7 @@ if ($_REQUEST['submit'] == "Submit")
 			   </tr>
 			   </thead><tbody>';
 			   
-		while($row = $stmt->fetch(PDO::FETCH_OBJ)) {	
-				
+		while($row = $stmt->fetch(PDO::FETCH_OBJ)) {				
 				
 				echo '					
 				<tr>
@@ -205,24 +204,6 @@ if ($_REQUEST['submit'] == "Submit")
 		echo 'ERROR: ' . $e->getMessage();
 	}		
 }
-// echo "<form name='comment' method='post' action='comment.php' onSubmit=''>";
-// echo "<p>Let us know whether the Regional Connector was helpful.</p>";
-// echo "<p>";
-  // echo "<label>
-    // <input type='radio' name='helpful' value='helpful' id='helpful' onClick='hideCommentText()'>
-    // YES</label><br>";
-  // echo "<label>
-    // <input type='radio' name='helpful' value='nothelpful' id='nothelpful' onClick='showCommentText()'>
-    // NO</label><br>";
-// echo "</p>";
-// echo "<p>";
-  // echo "<label for='comment' style='display:none' id='commentLabel'>Please let us know how we can make the Regional Connector better </label><br /> ";
-  // echo "<textarea name='comment' id='comment' rows='10' cols='70' style='display:none'></textarea>";
-// echo "</p>";
-// echo "<p>";
- // echo "<input type='submit' name='submit' id='submit' value='Submit' />";
-// echo "</p>";
-// echo "</form>";
 ?>
 
 </div>

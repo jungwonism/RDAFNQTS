@@ -90,8 +90,12 @@ class ReportDAO{
 			date_default_timezone_set('Australia/Brisbane');
 			$date = date('d_m_Y h.i.s a', time());
 			
+			
+			
 			$filename = "c:/report/searchengineusage_".$date.".csv";
-			$handle = fopen($filename, 'w+');
+			//$filename = "searchengineusage_".$date.".csv";
+			$handle = fopen($filename, 'w');
+			
 			
 			$stmt = $conn->prepare('SELECT type, COUNT( * ) as count FROM report WHERE type = "emailsent"'.$timeperiod);
 			$stmt->execute();
@@ -111,17 +115,20 @@ class ReportDAO{
 			
 			$stmt = $conn->prepare('SELECT type, COUNT( * ) as count FROM report WHERE type = "subscribed"'.$timeperiod);
 			$stmt->execute();
-			$subscribed = $stmt->fetch(PDO::FETCH_OBJ);			
+			$subscribed = $stmt->fetch(PDO::FETCH_OBJ);					
+				
+			// create a file pointer connected to the output stream
+			//$output = fopen('php://output', 'w');			
 			
 			fputcsv($handle, array('Number of follow through emails sent','Number of unsuccessful searches','Number of ‘helpful’ responses','Number of ‘not helpful’ responses','Number of subscribed users'));
 			fputcsv($handle, array($emailsent->count, $unsuccessful->count, $helpful->count, $nothelpful->count, $subscribed->count));			
-			 
+			
 			// Finish writing the file
-			fclose($handle);				
-					
+			fclose($handle);	
+			
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}		
-	}
+	}	
 }
 ?>
