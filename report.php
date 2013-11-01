@@ -18,6 +18,7 @@ function showExportButton() {
 <div id="container">
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
 <div id="box">
+<p><strong>Generating Report. Searched keywords or Search engine usage for a particular period. Please select options below.</strong></p>
 <form id='reportform' name='reportform' method='post' action=''>
 <select name="reporttype" id="reporttype" required>
   <option value="">Select report type</option>
@@ -57,6 +58,7 @@ if(isset($_POST["timeperiod"])) {
 	$timeperiod = $_POST["timeperiod"];
 }
 
+// folder creation
 if (!file_exists('c:/report')) {
     mkdir('c:/report', 0777, true);
 }
@@ -98,10 +100,7 @@ if(isset($_POST["reporttype"], $_POST["timeperiod"])) {
 				ReportDAO::queryReport("180");
 				break;				
 		}	
-	}
-	// echo '<script type="text/javascript">'
-   // , 'showExportButton();'
-   // , '</script>';
+	}	
 } else {
 	echo "Please select report type and time period. Thanks.";
 }

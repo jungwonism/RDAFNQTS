@@ -37,7 +37,7 @@ function hideSameAddress() {
 function emailValidate(form) {
   var e = form.elements;
 
-  /* Your validation code. */
+  /* validation code. */
 
   if(e['firstemail'].value != e['secondemail'].value) {
     alert('Your emails do not match. Please type more carefully.');
@@ -58,6 +58,7 @@ function emailValidate(form) {
 <div id="container">
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
 <div id="box">
+<p><strong>Please select options below. Strongly recommend you to subscribe our bi-monthly newsletter with useful information.</strong></p>
 <?php
 if(isset($_POST['helpful'])) {
 	$answer = $_POST['helpful'];	
@@ -77,8 +78,7 @@ if ($_REQUEST['submit'] == "Submit")
 		  echo "Email Sent Successfully.";
 		}else{
 		  echo "Email Not Sent. Please contact the administrator.";
-		}
-		//mail($to, $subject, $message);
+		}		
 	}
 }
 ?>

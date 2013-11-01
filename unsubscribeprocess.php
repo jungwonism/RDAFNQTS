@@ -54,6 +54,8 @@ if(isset($_POST['all']))
 	$newsnominate = 0;
 	$infonominate = 0;
 }
+
+// update the values into database
 EmailDAO::update($email, $rcnominate, $newsnominate, $infonominate);
 ?>
 

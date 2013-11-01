@@ -15,12 +15,12 @@ include("include_dao.php");
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
 <div id="box">
 <?php
-$to  = $_POST['to'] . ', '; // note the comma
+$to  = $_POST['to'] . ', ';
 if(isset($_POST['toMe'])) {$to .= $_POST['toMe'];}
 $subject = $_POST['subject'];
 $message = $_POST['myDoc'];
 $headers = 'From: RDA FNQ&TS Regional Connector Query' . "\r\n" .
-    'Reply-To: jungwon.jang@my.jcu.edu.au' . "\r\n" . // email address MUST be changed later.
+    'Reply-To: jungwon.jang@my.jcu.edu.au' . "\r\n" . // MUST be changed to info@rdafnqts.org.au
     'X-Mailer: PHP/' . phpversion();
 
 if(@mail($to, $subject, $message, $headers))
@@ -29,13 +29,8 @@ if(@mail($to, $subject, $message, $headers))
 }else{
   echo "Email Not Sent. Please contact the administrator.";
 }	
-
-//mail($to, $subject, $message, $headers);
 ReportDAO::insert("emailsent");
 ?>
-
-
-
 </div>
 </div>
 </body>

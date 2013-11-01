@@ -49,9 +49,9 @@ require_once('PHPMailer-master/class.phpmailer.php');
 		$email->From      = 'servertestmail00@gmail.com';
 		$email->FromName  = 'RDA FNQ&TS';
 		$email->Subject   = $_POST['subject'];
-		$email->Body      = $_POST['message'];
-		//$email->AddAddress('servertestmail00@gmail.com');
+		$email->Body      = $_POST['message'];		
 
+		// file attachment
 		if (isset($_FILES['uploaded_file']) && $_FILES['uploaded_file']['error'] == UPLOAD_ERR_OK) {
 			$email->AddAttachment($_FILES['uploaded_file']['tmp_name'], $_FILES['uploaded_file']['name']);
 		}

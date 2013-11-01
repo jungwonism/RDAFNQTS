@@ -49,7 +49,18 @@ class ReportDAO{
 			
 			$stmt = $conn->prepare('SELECT type, COUNT( * ) as count FROM report WHERE type = "subscribed"'.$timeperiod);
 			$stmt->execute();
-			$subscribed = $stmt->fetch(PDO::FETCH_OBJ);			
+			$subscribed = $stmt->fetch(PDO::FETCH_OBJ);		
+
+			$stmt = $conn->prepare('SELECT time FROM querypagetime WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL '.$interval.' DAY) AND NOW()');
+			$stmt->execute();
+			$timeArray = array();
+			$count = 0;			
+			while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($timeArray, $row->time);				
+				$count++;
+			}
+			$totaltimes = array_sum($timeArray);			
+			$average = $totaltimes/$count;			
 			
 			echo '<table class="sortable" id="rounded-corner">';
 			   echo '
@@ -60,6 +71,7 @@ class ReportDAO{
 				 <th scope="col">Number of ‘helpful’ responses</td>
 				 <th scope="col">Number of ‘not helpful’ responses</td>
 				 <th scope="col">Number of subscribed users</td>
+				 <th scope="col">Average time spent on search engine</td>
 			   </tr>
 			   </thead>
 			   <tbody>
@@ -69,6 +81,7 @@ class ReportDAO{
 				 <td><label>',$helpful->count,'</label></td>
 				 <td><label>',$nothelpful->count,'</label></td>
 				 <td><label>',$subscribed->count,'</label></td>
+				 <td><label>',$average,' seconds','</label></td>
 			   </tr>
 			   </tbody></table>';		
 					

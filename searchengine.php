@@ -7,6 +7,24 @@ include("include_dao.php");
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Regional Connector</title>
 <script type="text/javascript">
+function start()
+{
+	starttime = (new Date()).getTime();
+}
+function leave()
+{
+	// to measure how long the users stay in search engine page and store the value into database
+	stoptime = (new Date()).getTime();
+	var params = "timeSpent="+((stoptime-starttime)/1000);
+	xmlobj = new XMLHttpRequest();
+	xmlobj.open('POST', 'ajaxlogtime.php', true);
+	xmlobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlobj.setRequestHeader("Content-length", params.length);
+	xmlobj.setRequestHeader("Connection", "close");
+	xmlobj.send(params);
+}
+window.onload=start;
+window.onbeforeunload = leave;
 function enableInterstate(value)
 {	
     var subfield = document.getElementById("interstatedropdown");	
@@ -33,35 +51,16 @@ function enableInternational(value)
     }
 }
 </script>
-<script>
-function start()
-{
-        starttime = (new Date()).getTime();
-}
-function leave()
-{
-        stoptime = (new Date()).getTime();
-        var params = "timeSpent="+((stoptime-starttime)/1000);
-        xmlobj = new XMLHttpRequest();
-        xmlobj.open('POST', 'ajaxlogtime.php', true);
-        xmlobj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlobj.setRequestHeader("Content-length", params.length);
-        xmlobj.setRequestHeader("Connection", "close");
-        xmlobj.send(params);
-		
-} 
-</script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <link href="css/basic.css" rel="stylesheet" type="text/css">
 </head>
 
-<body onload=start() onunload=leave()>
+<body>
 
 <div id="container">
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
-
 <div id="box">
-
+<p><strong>Regional Connector - Please select options below to search like-minded organization.</strong></p>
 <form name="addentry" method="post" action="searchengineprocess.php">
 <fieldset>
  <legend>Select regions in which you do business, provide services and/or sell products</legend>  
@@ -206,19 +205,12 @@ function leave()
   </select>
 </fieldset>
 <script>
-$( "form" ).submit(function( event ) {
-    
+$( "form" ).submit(function( event ) {    
 	if($('input:checkbox[name="regiongroup[]"]:checked').length === 0 || $('input:checkbox[name="orgmainpurpose[]"]:checked').length === 0){
 		alert("Please choose at least one option for each section.");
 		hasError = true;
 		event.preventDefault();
 	}
-	// if($('input:checkbox[name="orgmainpurpose[]"]:checked').length === 0){
-		// //$("#multichk").after('<span class="error">Please choose at least one.</span>');
-		// alert("Please choose at least one option for Main purpose section.");
-		// hasError = true;
-		// event.preventDefault();
-	// }
 });
 </script>
 <br />

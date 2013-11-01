@@ -1,5 +1,4 @@
 <?php
-//include("dbconnect.php");
 include("include_dao.php");
 ?>
 <!DOCTYPE HTML>
@@ -20,10 +19,12 @@ if(isset($_POST['helpful'])) {
 }
 if ($_REQUEST['submit'] == "Submit")
 {	
+	// store the answer whether the search engine is helpful
 	if($answer == 'helpful') {
 		ReportDAO::insert("helpful");
 	} elseif ($answer == 'nothelpful') {
 		ReportDAO::insert("nothelpful");
+		// send an email with user's comment to a designated email address
 		$to  = 'jangjungwon@hotmail.com'; // MUST be changed to info@rdafnqts.org.au
 		$subject = 'Comment from the the user who select the regional connector is not helpful';
 		$message = $_POST['comment'];
@@ -33,8 +34,7 @@ if ($_REQUEST['submit'] == "Submit")
 		  echo "Email Sent Successfully.";
 		}else{
 		  echo "Email Not Sent. Please contact the administrator.";
-		}
-		//mail($to, $subject, $message);
+		}		
 	}
 }
 ?>

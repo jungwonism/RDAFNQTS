@@ -1,5 +1,4 @@
 <?php
-//include("dbconnect.php");
 include("include_dao.php");
 ?>
 <!DOCTYPE HTML>
@@ -15,6 +14,7 @@ include("include_dao.php");
 <div id="container">
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
 <div id="box">
+<p><strong>Send a newsletter to one of the following email group.</strong></p>
 <form name="email" method="post" action="emailnewprocess.php" enctype="multipart/form-data">
 <?php
 $to = "servertestmail00@gmail.com";

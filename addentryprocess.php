@@ -1,5 +1,4 @@
 <?php
-//include("dbconnect.php");
 include("include_dao.php");
 ?>
 <!DOCTYPE HTML>
@@ -52,6 +51,7 @@ if(isset($_POST['email3'])) {
 	$email3 = $_POST['email3'];
 }
 
+// default(initial) values
 $keydm = "";
 $keyi = "";
 $early = 0;
@@ -113,6 +113,7 @@ if(isset($_POST['postalcountry'])) {
 	$postalcountry = $_POST['postalcountry'];
 }
 
+// default(initial) values
 $leadership = "";
 $industry = "";
 $roadmap = "";
@@ -156,10 +157,11 @@ $info = 0;
 
 if ($_REQUEST['submit'] == "Submit")
 {	
+	// insert a new member entry
 	MemberDAO::insert($firstName, $lastName, $position, $phone, $fax, $mobile, $otherNumber, $skype, $twitter, $email1, $email2, $email3);
 
 	$memberid = MemberDAO::queryID($firstName, $lastName, $position);
-	//echo $memberid;	
+		
 	if(isset($_POST['contacttypegroup'])) {
 		foreach($_POST['contacttypegroup'] as $value)
 		{			
@@ -177,17 +179,18 @@ if ($_REQUEST['submit'] == "Submit")
 		}
 	}
 	
+	// insert a new contact type entry
 	ContactTypeDAO::insert($keydm, $keyi, $early, $gate, $operation);
 	
-	$contacttypeid = ContactTypeDAO::queryID();
-	//echo "contacttypeid=".$contacttypeid;
+	$contacttypeid = ContactTypeDAO::queryID();	
 	
+	// insert a new member contact entry
 	MemberContactDAO::insert($memberid, $contacttypeid);
 	
+	// insert a new organization entry
 	OrganizationDAO::insert($orgName, $website, $orgType, $promotionsubscribe, $connectorsubscribe, $businessaddress1, $businessaddress2, $businesssuburb, $businessstate, $businesspostcode, $businesscountry, $postaladdress1, $postaladdress2, $postalsuburb, $postalstate, $postalpostcode, $postalcountry, $memberid);
 	
-	$organizationid = OrganizationDAO::queryID($orgName);
-	//echo "orgID=".$organizationid;
+	$organizationid = OrganizationDAO::queryID($orgName);	
 	
 	if(isset($_POST['membershipgroup'])) {
 		foreach($_POST['membershipgroup'] as $value)
@@ -206,10 +209,10 @@ if ($_REQUEST['submit'] == "Submit")
 		}
 	}
 	
+	// insert a new group membership entry
 	GroupMembershipDAO::insert($leadership, $industry, $roadmap, $practitioner, $other);
 	
 	$groupmembershipid = GroupMembershipDAO::queryID();
-	//echo "groupmembershipID=".$groupmembershipid;
 	
 	OrganizationMembershipDAO::insert($organizationid, $groupmembershipid);
 	
@@ -244,12 +247,14 @@ if ($_REQUEST['submit'] == "Submit")
 		}
 	}
 	
+	// insert a new key interests entry
 	KeyinterestsDAO::insert($seekpartner, $seekchannel, $offerchannel, $seekcontractor, $offercontractor, $seekcapital, $offercapital, $seekfunding, $offerfunding, $seekresearch, $offerresearch, $etc);
 	
 	$keyinterestsid = KeyinterestsDAO::queryID();
 	
 	OrganizationKeyInterestsDAO::insert($organizationid, $keyinterestsid);
 	
+	// insert a new keywords entry
 	KeywordsDAO::insert($keywords);
 	
 	$keywordid = KeywordsDAO::queryID();
@@ -281,6 +286,7 @@ if ($_REQUEST['submit'] == "Submit")
 		}
 	}
 	
+	// insert a new main purpose entry
 	MainPurposeDAO::insert($economic, $environmental, $socialcomm, $health, $education, $marketing, $research, $contractor, $mediaoutlet);
 	$mainpurposeid = MainPurposeDAO::queryID();
 	
@@ -298,11 +304,11 @@ if ($_REQUEST['submit'] == "Submit")
 			} else {
 				array_push($regionarray, $value);
 			}		
-		}
-		// $region = implode(",", $regionarray);
+		}		
 	}
 	$region = implode(",", $regionarray);
 	
+	// insert a new regions entry
 	RegionsDAO::insert($region);
 	$regionid = RegionsDAO::queryID();
 	
@@ -319,6 +325,7 @@ if ($_REQUEST['submit'] == "Submit")
 		}
 	}
 	
+	// insert a new email entry
 	EmailDAO::insert($email1, $rconnector, $newsletter, $info, $organizationid);
 	$rconnector = 0;
 	$newsletter = 0;

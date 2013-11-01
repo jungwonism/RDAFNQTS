@@ -5,12 +5,8 @@ class Connection {
 	private $password = "lilac";
 	private $options = null;  
     protected static $instance; 
-	// private $hostname = "localhost"; 
-	// private $database = "RDAFNQTS";
-	// private $connection;
-
+	
 	//connection to the database
-
 	protected function __construct() 
     { 
         if(!isset(self::$instance)) 

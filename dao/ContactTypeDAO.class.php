@@ -21,8 +21,7 @@ class ContactTypeDAO{
 			));			
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
-		}		
-		
+		}				
 	}
 	
 	public static function queryID() {

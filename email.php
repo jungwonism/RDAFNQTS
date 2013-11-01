@@ -82,6 +82,7 @@ img.intLink { border: 0; }
 <body onload="initDoc();">
 <div id="container">
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
+<p><strong>Email to the organization you searched.</strong></p>
 <form name="email" method="post" action="emailprocess.php" onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;">
 <?php
 $toMe = "";
@@ -93,7 +94,7 @@ if($answer == 'yes') {
 	$subject = 'Subscribe for bi-monthly newsletter';
 	$message = 'Following user wants to subscribe for the bi-monthly newsletter. ' .$_POST['secondemail'];
 	mail($to, $subject, $message);
-	EmailDAO::insert($_POST['secondemail'], 0, 1, 0, 0);
+	EmailDAO::insert($_POST['secondemail'], 0, 1, 0, 0); // insert a new subscribed user into database
 	ReportDAO::insert("subscribed");	
 }
 
@@ -115,7 +116,7 @@ if($answerB == 'yes') {
 }
 
 $to = $_POST['emailAddress'];
-echo "Subject: <br/><input name='subject' type='text' id='subject' size='80' />";
+echo "Subject: <br/><input name='subject' type='text' id='subject' size='80' value='[Regional Connector Contact]: ' />";
 echo "<br/>";
 echo "<input type='hidden' name='to' id='to' value='$to'>";
 if($toMe != "") {

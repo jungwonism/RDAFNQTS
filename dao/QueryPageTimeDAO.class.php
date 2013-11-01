@@ -11,11 +11,10 @@ class QueryPageTimeDAO{
 			$conn = new PDO($dsn, $username, $password);
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);   			
 			
-			$stmt = $conn->prepare('INSERT INTO querypagetime (Time) VALUES (:time)');
+			$stmt = $conn->prepare('INSERT INTO querypagetime (Time, Date) VALUES (:time, now())');
 			$stmt->execute(array(
 				':time' => $time
-			));
-		
+			));		
 		} catch(PDOException $e) {
 			echo 'ERROR: ' . $e->getMessage();
 		}		

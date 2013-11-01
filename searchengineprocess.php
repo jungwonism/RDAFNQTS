@@ -1,6 +1,5 @@
 <?php
 include("include_dao.php");
-//include("dbconnect.php");
 ?>
 <!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -27,7 +26,7 @@ $(".blackout").css("display", "none");
 $(".msgbox").css("display", "none");
 }
 
-//This is the function that closes the pop-up
+//This is the function that shows the pop-up
 function strtBlackout(){
 $(".msgbox").css("display", "block");
 $(".blackout").css("display", "block");
@@ -35,7 +34,7 @@ $(".blackout").css("display", "block");
 
 //Sets the buttons to trigger the blackout on clicks
 $(document).ready(function(){
-$("#mailsendbutton").click(strtBlackout); // open if btn is pressed
+$("#mailsendbutton").click(strtBlackout); // open if button is pressed
 $(".blackout").click(endBlackout); // close if click outside of popup
 $(".closeBox").click(endBlackout); // close if close btn clicked
 
@@ -145,7 +144,7 @@ if ($_REQUEST['submit'] == "Submit")
 		
 		$stmt = $conn->prepare('SELECT distinct Region, OrganizationName, OrganizationType, WebsiteAddress, EconomicProfit, Environmental, SocialCommunity, HealthServices, Education, DestinationMarketing, Research, ConsultancyContractor, MediaOutlet, SeekingPartners, SeekingChannels, OfferingChannels, SeekingContractor, OfferingContractor, SeekingVentureCapital, OfferingVentureCaptital, SeekingFunding, OfferingFunding, SeekingResearchSupport, OfferingResearchSupport, Etc, Keyword, Email FROM Regions, Organization, OrganizationRegion, MainPurpose, OrganizationPurpose, Keyinterests, OrganizationKeyInterests, Keywords, OrganizationKeywords, Email WHERE Regions.RegionID = OrganizationRegion.RegionID AND Organization.OrganizationID = OrganizationRegion.OrganizationID AND MainPurpose.MainPurposeID = OrganizationPurpose.MainPurposeID AND Organization.OrganizationID = OrganizationPurpose.OrganizationID AND Organization.OrganizationID = OrganizationKeyInterests.OrganizationID AND Keyinterests.KeyInterestsID = OrganizationKeyInterests.KeyInterestsID AND Keywords.KeywordID = OrganizationKeywords.KeywordID AND OrganizationKeywords.OrganizationID = Organization.OrganizationID AND Email.OrganizationID = Organization.OrganizationID AND '.$region.$orgType.$purpose.$orgKeywords.$emailConstraint);
 		$stmt->execute();
-		
+		// generate search result table with the columns below
 		echo '<table class="sortable" id="rounded-corner">';
 			   echo '
 			   <thead>
@@ -172,7 +171,7 @@ if ($_REQUEST['submit'] == "Submit")
 				 <td><label>',$row->WebsiteAddress,'</label></td>
 				 <td><label>',$row->SeekingPartners, $row->SeekingChannels, $row->OfferingChannels, $row->SeekingContractor, $row->OfferingContractor, $row->SeekingVentureCapital, $row->OfferingVentureCaptital, $row->SeekingFunding, $row->OfferingFunding, $row->SeekingResearchSupport, $row->OfferingResearchSupport, $row->Etc,'</label></td>
 				 <td><label>',$row->Keyword,'</label></td>
-				 <td><center>															
+				 <td><center>														
 							<input type="button" id="mailsendbutton" value="Click" /></center>
 							<div class="blackout">
 							</div>

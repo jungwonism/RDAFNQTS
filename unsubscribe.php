@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Unsubscribe</title>
-
 <link href="css/basic.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -13,10 +12,10 @@
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
 
 <div id="box">
-<p>RDA FNQ&TS understands that you would like to stop receiving communication from us.</p>
+<p><strong>RDA FNQ&TS understands that you would like to stop receiving communication from us.</strong></p>
 <form name="unsubscribe" method="post" action="unsubscribeprocess.php">
 
-<label>Email Address: <input name="email" type="email" id="email" size="30" required/></label>
+<label>Email Address: <input name="email" type="email" id="email" size="30" required /></label>
 <fieldset>
  <legend>Select which of the following you would like to be unsubscribed from.</legend>  
  <table>

@@ -215,9 +215,10 @@ function isCharacterNumber(evt){
 <div id="container">
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
 <div id="box">
+<p><strong>Add a new organization entry into RDA FNQ&TS database. Please fill in the form provided below. (* mandatory fields)</strong></p>
 <form name="addentry" method="post" action="addentryprocess.php" onSubmit="javascript:return isValidEmail()">
 <p>
- <label for="firstname">First Name: * mendatory field</label><br />
+ <label for="firstname">First Name: *</label><br />
  <input name="firstname" type="text" id="firstname" size="30" onkeypress='return isCharacterNumber(event)' required/>
 </p>
 <p>
