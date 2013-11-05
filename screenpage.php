@@ -59,30 +59,7 @@ function emailValidate(form) {
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
 <div id="box">
 <p><strong>Please select options below. Strongly recommend you to subscribe our bi-monthly newsletter with useful information.</strong></p>
-<?php
-if(isset($_POST['helpful'])) {
-	$answer = $_POST['helpful'];	
-}
-if ($_REQUEST['submit'] == "Submit")
-{		
-	if($answer == 'helpful') {
-		ReportDAO::insert("helpful");
-	} elseif ($answer == 'nothelpful') {
-		ReportDAO::insert("nothelpful");
-		$to  = 'servertestmail00@gmail.com'; // MUST be changed to info@rdafnqts.org.au
-		$subject = 'Comment from the the user who select the regional connector is not helpful';
-		$message = $_POST['comment'];
-		
-		if(@mail($to, $subject, $message))
-		{
-		  echo "Email Sent Successfully.";
-		}else{
-		  echo "Email Not Sent. Please contact the administrator.";
-		}		
-	}
-}
-?>
-<form name="sendinfo" method="post" action="email.php" onSubmit="return emailValidate(this);">
+<form name="sendinfo" method="post" action="emailprocess.php" onSubmit="return emailValidate(this);">
 <p>Thank you for searching with the RDA FNQ&amp;TS Regional Connector. Would you like to receive our bi-monthly newsletter?</p>
 <p>
   <label>
@@ -103,27 +80,14 @@ if ($_REQUEST['submit'] == "Submit")
  <input name="secondemail" type="email" id="secondemail" size="30" style="display:none" />
 </p>
 
-<p>Would you like a copy of this email sent to your email address?</p>
+<p>Would you like to send a copy of this contact e-mail to another e-mail address?</p>
 <p>
   <label>
-    <input type="radio" name="questionB" value="yes" id="questionB_0" onClick="checkNewsOptin()">
+    <input type="radio" name="questionB" value="yes" id="questionB_0" onClick="checkNewsOptin(); showEmailText('copyemail1', 'copyemail2')">
     YES</label>
   <br>
   <label>
     <input type="radio" name="questionB" value="no" id="questionB_1" onClick="hideSameAddress(); hideEmailText('copyemail1', 'copyemail2')">
-    NO</label>
-  <br>
-</p>
-<p>
-  <label style="display:none" id="sameaddress">Would you like to send a copy of this email to the same email address you provided above?</label>
-</p>
-<p>
-  <label style="display:none" id="sameaddressy">
-    <input type="radio" name="questionC" value="yes" id="questionC_0" onClick="hideEmailText('copyemail1', 'copyemail2')">
-    YES</label>
-  <br>
-  <label style="display:none" id="sameaddressn">
-    <input type="radio" name="questionC" value="no" id="questionC_1" onClick="showEmailText('copyemail1', 'copyemail2')">
     NO</label>
   <br>
 </p>
@@ -138,11 +102,15 @@ if ($_REQUEST['submit'] == "Submit")
 <p><br />
 </p>
 <?php
-$orgEmail = $_POST['emailAddress'];
-echo "<input type='hidden' name='emailAddress' value='$orgEmail' />";	
+$to = $_POST['to'];
+echo "<input type='hidden' name='to' value='$to' />";
+$subject = $_POST['subject'];
+echo "<input type='hidden' name='subject' value='$subject' />";
+$myDoc = $_POST['myDoc'];
+echo "<input type='hidden' name='myDoc' value='$myDoc' />";
 ?>
 <p>
- <input type="submit" name="submit" id="submit" value="Next" />
+ <input type="submit" name="submit" id="submit" value="Send" />
 </p>
 </form>
 </div>

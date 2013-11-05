@@ -82,50 +82,43 @@ img.intLink { border: 0; }
 <body onload="initDoc();">
 <div id="container">
 <a href="http://www.rdafnqts.org.au/"><img src="images/logo.png"></a>
-<p><strong>Email to the organization you searched.</strong></p>
-<form name="email" method="post" action="emailprocess.php" onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;">
+<div id="box">
 <?php
-$toMe = "";
-if(isset($_POST['questionA'])) {
-	$answer = $_POST['questionA'];	
+if(isset($_POST['helpful'])) {
+	$answer = $_POST['helpful'];	
 }
-if($answer == 'yes') {
-	$to  = 'servertestmail00@gmail.com'; // MUST be changed to info@rdafnqts.org.au
-	$subject = 'Subscribe for bi-monthly newsletter';
-	$message = 'Following user wants to subscribe for the bi-monthly newsletter. ' .$_POST['secondemail'];
-	mail($to, $subject, $message);
-	EmailDAO::insert($_POST['secondemail'], 0, 1, 0, 0); // insert a new subscribed user into database
-	ReportDAO::insert("subscribed");	
+if ($_REQUEST['submit'] == "Submit")
+{		
+	if($answer == 'helpful') {
+		ReportDAO::insert("helpful");
+	} elseif ($answer == 'nothelpful') {
+		ReportDAO::insert("nothelpful");
+		$to  = 'servertestmail00@gmail.com'; // MUST be changed to info@rdafnqts.org.au
+		$subject = 'Comment from the the user who select the regional connector is not helpful';
+		$message = $_POST['comment'];
+		
+		if(@mail($to, $subject, $message))
+		{
+		  echo "Email Sent Successfully.";
+		}else{
+		  echo "Email Not Sent. Please contact the administrator.";
+		}		
+	}
 }
-
-if(isset($_POST['questionB'])) {
-	$answerB = $_POST['questionB'];	
-}
-if(isset($_POST['questionC'])) {
-	$answerC = $_POST['questionC'];	
-}
-if($answerB == 'yes') {	
-	if($answer == 'no') {
-		$toMe = $_POST['copyemail2'];
-	} elseif($answer == 'yes') {
-		$toMe = $_POST['copyemail2'];
-		if($answerC == 'yes') {
-			$toMe = $_POST['secondemail'];
-		}
-	} 
-}
-
+?>
+<p><strong>Email to the organization you searched.</strong></p>
+<form name="email" method="post" action="screenpage.php" onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;">
+<?php
 $to = $_POST['emailAddress'];
 echo "Subject: <br/><input name='subject' type='text' id='subject' size='80' value='[Regional Connector Contact]: ' />";
 echo "<br/>";
 echo "<input type='hidden' name='to' id='to' value='$to'>";
-if($toMe != "") {
-	echo "<input type='hidden' name='toMe' id='toMe' value='$toMe'>";
-}
 echo "Message: <br/><textarea name='myDoc' rows='10' cols='70'></textarea>";
 ?>
 
-<p><input type="submit" name="submit" id="submit" value="Send" /></p>
+<p><input type="submit" name="submit" id="submit" value="Next" /></p>
 </form>
+</div>
+</div>
 </body>
 </html>

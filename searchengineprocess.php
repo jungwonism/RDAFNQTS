@@ -56,38 +56,29 @@ if ($_REQUEST['submit'] == "Submit")
 	if(isset($_POST['regiongroup'])) {
 		foreach($_POST['regiongroup'] as $value)
 		{
-			if ($value == 'interstate') {
-				if ($count == 0) {
-					$interstate = "Region LIKE '%".$_POST['interstatedropdown']."%'";
-					$count = 1;			
-				} else {
-					$interstate = " AND Region LIKE '%".$_POST['interstatedropdown']."%'";
-				}
+			if ($value == 'interstate') {				
+				$interstate = " AND Region LIKE '%".$_POST['interstatedropdown']."%'";				
 				array_push($regionarray, $interstate);
-			} else if ($value == 'international') {
-				if ($count == 0) {
-					$international = "Region LIKE '%".$_POST['internationalregion']."%'";
-					$count = 1;
-				} else {
-					$international = " AND Region LIKE '%".$_POST['internationalregion']."%'";
-				}
+			} else if ($value == 'international') {				
+				$international = " AND Region LIKE '%".$_POST['internationalregion']."%'";			
 				array_push($regionarray, $international);
-			} else {
-				if ($count == 0) {
-					$queryvalue = "Region LIKE '%".$value."%'";
-					$count = 1;
-				} else {
-					$queryvalue = " AND Region LIKE '%".$value."%'";
-				}			
+			} else {				
+				$queryvalue = " AND Region LIKE '%".$value."%'";						
 				array_push($regionarray, $queryvalue);
 			}		
-		}		
-	}
-	$region = implode("", $regionarray);
+		}	
+		$region = implode("", $regionarray);
+	} else {
+		$region = "";
+	}	
 	
-	$orgTypeValue = $_POST['orgtype'];	
-	$orgType = " AND Organization.OrganizationType = '".$orgTypeValue."'";
-		
+	if(!$_POST['orgtype'] == "") {
+		$orgTypeValue = $_POST['orgtype'];	
+		$orgType = " AND Organization.OrganizationType = '".$orgTypeValue."'";
+	} else {
+		$orgType = "";
+	}
+	
 	$mediaoutlet = "";
 	$purposearray = array();
 	
@@ -116,23 +107,30 @@ if ($_REQUEST['submit'] == "Submit")
 			}
 			array_push($purposearray, $queryvalue);
 		}
+		$purpose = implode("", $purposearray);
+	} else {
+		$purpose = "";
 	}
 	
-	$purpose = implode("", $purposearray);
-	
+	$keywordArray = array();
 	if(isset($_POST['keywords'])) {
 		$keywords = $_POST['keywords'];
 		$separatedKeywords = explode(",", $keywords);
+		foreach ($separatedKeywords as &$value) {
+			SearchedKeywordsDAO::insert($value);
+			$queryvalue = " AND Keyword LIKE '%".$value."%'";
+			array_push($keywordArray, $queryvalue);
+		}
+		$orgKeywords = implode("", $keywordArray);
+	} else {
+		$orgKeywords = "";
 	}
-	$keywordArray = array();
-	foreach ($separatedKeywords as &$value) {
-		SearchedKeywordsDAO::insert($value);
-   		$queryvalue = " AND Keyword LIKE '%".$value."%'";
-		array_push($keywordArray, $queryvalue);
-	}
-	$orgKeywords = implode("", $keywordArray);
-	$emailConstraint = " AND Email.RCNominate = 1";
 	
+	if($region == "" && $orgType == "" && $purpose == "" && $orgKeywords = "") {
+		$emailConstraint = "Email.RCNominate = 1";	
+	} else {
+		$emailConstraint = " AND Email.RCNominate = 1";	
+	}	
 
 	$dsn = "mysql:dbname=RDAFNQTS;host=localhost";
 	$username = "root";
@@ -142,7 +140,7 @@ if ($_REQUEST['submit'] == "Submit")
 		$conn = new PDO($dsn, $username, $password);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 			
 		
-		$stmt = $conn->prepare('SELECT distinct Region, OrganizationName, OrganizationType, WebsiteAddress, EconomicProfit, Environmental, SocialCommunity, HealthServices, Education, DestinationMarketing, Research, ConsultancyContractor, MediaOutlet, SeekingPartners, SeekingChannels, OfferingChannels, SeekingContractor, OfferingContractor, SeekingVentureCapital, OfferingVentureCaptital, SeekingFunding, OfferingFunding, SeekingResearchSupport, OfferingResearchSupport, Etc, Keyword, Email FROM Regions, Organization, OrganizationRegion, MainPurpose, OrganizationPurpose, Keyinterests, OrganizationKeyInterests, Keywords, OrganizationKeywords, Email WHERE Regions.RegionID = OrganizationRegion.RegionID AND Organization.OrganizationID = OrganizationRegion.OrganizationID AND MainPurpose.MainPurposeID = OrganizationPurpose.MainPurposeID AND Organization.OrganizationID = OrganizationPurpose.OrganizationID AND Organization.OrganizationID = OrganizationKeyInterests.OrganizationID AND Keyinterests.KeyInterestsID = OrganizationKeyInterests.KeyInterestsID AND Keywords.KeywordID = OrganizationKeywords.KeywordID AND OrganizationKeywords.OrganizationID = Organization.OrganizationID AND Email.OrganizationID = Organization.OrganizationID AND '.$region.$orgType.$purpose.$orgKeywords.$emailConstraint);
+		$stmt = $conn->prepare('SELECT distinct Region, OrganizationName, OrganizationType, WebsiteAddress, EconomicProfit, Environmental, SocialCommunity, HealthServices, Education, DestinationMarketing, Research, ConsultancyContractor, MediaOutlet, SeekingPartners, SeekingChannels, OfferingChannels, SeekingContractor, OfferingContractor, SeekingVentureCapital, OfferingVentureCaptital, SeekingFunding, OfferingFunding, SeekingResearchSupport, OfferingResearchSupport, Etc, Keyword, Email FROM Regions, Organization, OrganizationRegion, MainPurpose, OrganizationPurpose, Keyinterests, OrganizationKeyInterests, Keywords, OrganizationKeywords, Email WHERE Regions.RegionID = OrganizationRegion.RegionID AND Organization.OrganizationID = OrganizationRegion.OrganizationID AND MainPurpose.MainPurposeID = OrganizationPurpose.MainPurposeID AND Organization.OrganizationID = OrganizationPurpose.OrganizationID AND Organization.OrganizationID = OrganizationKeyInterests.OrganizationID AND Keyinterests.KeyInterestsID = OrganizationKeyInterests.KeyInterestsID AND Keywords.KeywordID = OrganizationKeywords.KeywordID AND OrganizationKeywords.OrganizationID = Organization.OrganizationID AND Email.OrganizationID = Organization.OrganizationID '.$region.$orgType.$purpose.$orgKeywords.$emailConstraint);
 		$stmt->execute();
 		// generate search result table with the columns below
 		echo '<table class="sortable" id="rounded-corner">';
@@ -178,7 +176,7 @@ if ($_REQUEST['submit'] == "Submit")
 							<div class="msgbox">									
 							<br />
 							<center>
-							<form id="emailForm" name="emailForm" method="post" action="screenpage.php"><p>Let us know whether the Regional Connector was helpful.</p><br />
+							<form id="emailForm" name="emailForm" method="post" action="email.php"><p>Let us know whether the Regional Connector was helpful.</p><br />
 							<input type="hidden" name="emailAddress" value='.$row->Email.' />
 							<label>
 							<input type="radio" name="helpful" value="helpful" id="helpful" onClick="hideCommentText()">

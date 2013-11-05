@@ -150,7 +150,8 @@ function enableInternational(value)
 
 <br />
 <fieldset><legend>Organization Type</legend>
-	<select name="orgtype" id="orgtype">     
+	<select name="orgtype" id="orgtype">
+	 <option></option>
      <option value="Federal government">Federal government</option>
      <option value="State government">State government</option>
      <option value="Local government">Local government</option>
@@ -204,19 +205,11 @@ function enableInternational(value)
    <option value="magazine">Magazine/Journal</option>
   </select>
 </fieldset>
-<script>
-$( "form" ).submit(function( event ) {    
-	if($('input:checkbox[name="regiongroup[]"]:checked').length === 0 || $('input:checkbox[name="orgmainpurpose[]"]:checked').length === 0){
-		alert("Please choose at least one option for each section.");
-		hasError = true;
-		event.preventDefault();
-	}
-});
-</script>
+
 <br />
 <p>
  <label for="keywords">Keywords: (separate with comma(,))</label><br />
- <input name="keywords" type="text" id="keywords" placeholder="e.g. health,disability,NRM,agriculture,etc" size="80"  maxlength="300" required />
+ <input name="keywords" type="text" id="keywords" placeholder="e.g. health,disability,NRM,agriculture,etc" size="80"  maxlength="300" />
 </p>
 <br />
 <input type="submit" name="submit" id="submit" value="Submit" />
